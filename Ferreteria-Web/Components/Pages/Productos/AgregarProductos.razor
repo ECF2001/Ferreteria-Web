@@ -1,0 +1,51 @@
+﻿@page "/agregarproducto"
+
+
+<h3>Agregar Nuevo Producto</h3>
+
+<EditForm Model="nuevoProducto" OnValidSubmit="AgregarProducto" FormName="formAgregarProducto">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <InputText class="form-control" @bind-Value="nuevoProducto.Nombre" />
+    </div>
+
+    <div class="mb-3">
+        <label>Descripción</label>
+        <InputText class="form-control" @bind-Value="nuevoProducto.Descripcion" />
+    </div>
+
+    <div class="mb-3">
+        <label>Precio Compra</label>
+        <InputNumber class="form-control" @bind-Value="nuevoProducto.Precio_Compra" />
+    </div>
+
+    <div class="mb-3">
+        <label>Precio Venta</label>
+        <InputNumber class="form-control" @bind-Value="nuevoProducto.Precio_Venta" />
+    </div>
+
+    <div class="mb-3">
+        <label>Stock Actual</label>
+        <InputNumber class="form-control" @bind-Value="nuevoProducto.Stock_Actual" />
+    </div>
+
+    <div class="mb-3">
+        <label>Stock Mínimo</label>
+        <InputNumber class="form-control" @bind-Value="nuevoProducto.Stock_Minimo" />
+    </div>
+
+    <div class="mb-3">
+        <label>ID Categoría</label>
+        <InputNumber class="form-control" @bind-Value="nuevoProducto.Id_Categoria" />
+    </div>
+
+    <div class="mb-3">
+        <label>ID Proveedor</label>
+        <InputNumber class="form-control" @bind-Value="nuevoProducto.Id_Proveedor" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</EditForm>
