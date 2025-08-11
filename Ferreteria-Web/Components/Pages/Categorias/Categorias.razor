@@ -1,0 +1,33 @@
+﻿@page "/categorias"
+@using Ferreteria_Web.Models
+
+<h3>Inventario de Categorias</h3>
+
+@if (_categorias == null)
+{
+    <p>Cargando categorias...</p>
+}
+else if (!_categorias.Any())
+{
+    <p>No hay categorias registrados.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in _categorias)
+        {
+            <tr>
+                <td>@p.Nombre_Categoria</td>
+                <td>@p.Descripcion</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

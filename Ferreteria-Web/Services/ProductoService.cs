@@ -7,7 +7,6 @@ using Ferreteria_Web.Models;
 public class ProductoService(IHttpClientFactory httpClientFactory)
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient("api");
-    private List<ProductoModel> productos = new();
 
     public async Task<List<ProductoModel>> ObtenerTodosAsync()
     {

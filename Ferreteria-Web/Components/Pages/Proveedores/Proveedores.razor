@@ -1,0 +1,37 @@
+﻿@page "/proveedores"
+@using Ferreteria_Web.Models
+
+<h3>Lista de Proveedores</h3>
+
+@if (_proveedores == null)
+{
+    <p>Cargando proveedores...</p>
+}
+else if (!_proveedores.Any())
+{
+    <p>No hay proveedores registrados.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Direccion</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in _proveedores)
+        {
+            <tr>
+                <td>@p.Nombre</td>
+                <td>@p.Telefono</td>
+                <td>@p.Correo</td>
+                <td>@p.Direccion</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,21 @@
+﻿@page "/agregarcategorias"
+
+
+<h3>Agregar Nueva Categoria</h3>
+
+<EditForm Model="_nuevaCategoria" OnValidSubmit="AgregarCategoria" FormName="formAgregarCategoria">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <InputText class="form-control" @bind-Value="_nuevaCategoria.Nombre_Categoria" />
+    </div>
+
+    <div class="mb-3">
+        <label>Descripción</label>
+        <InputText class="form-control" @bind-Value="_nuevaCategoria.Descripcion" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</EditForm>

@@ -5,10 +5,10 @@ namespace Ferreteria_Web.Components.Pages.Productos;
 
 public partial class Productos(ProductoService productoService) : ComponentBase
 {
-    private List<ProductoModel> productos;
+    private List<ProductoModel> _productos = new List<ProductoModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        productos = await productoService.ObtenerTodosAsync();
+        _productos = await productoService.ObtenerTodosAsync();
     }
 }

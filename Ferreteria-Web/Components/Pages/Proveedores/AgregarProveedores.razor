@@ -1,0 +1,30 @@
+﻿@page "/agregarproveedores"
+
+<h3>Agregar Nuevo Proveedor</h3>
+
+<EditForm Model="_nuevoProveedor" OnValidSubmit="AgregarProveedor" FormName="formAgregarProveedor">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Nombre</label>
+        <InputText class="form-control" @bind-Value="_nuevoProveedor.Nombre" />
+    </div>
+
+    <div class="mb-3">
+        <label>Telefono</label>
+        <InputText class="form-control" @bind-Value="_nuevoProveedor.Telefono" />
+    </div>
+
+    <div class="mb-3">
+        <label>Correo</label>
+        <InputNumber class="form-control" @bind-Value="_nuevoProveedor.Correo" />
+    </div>
+
+    <div class="mb-3">
+        <label>Direccion</label>
+        <InputNumber class="form-control" @bind-Value="_nuevoProveedor.Direccion" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</EditForm>

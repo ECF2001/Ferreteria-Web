@@ -1,13 +1,15 @@
 using Ferreteria_Web.Components;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddMudServices();
 builder.Services.AddHttpClient("api", http =>
 {
-    http.BaseAddress = new Uri("https://localhost:44301/api/");
+    http.BaseAddress = new Uri("https://localhost:44392/api/");
 });
 builder.Services.AddSingleton<ProductoService>();
 var app = builder.Build();
