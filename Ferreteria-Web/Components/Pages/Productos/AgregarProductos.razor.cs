@@ -1,13 +1,17 @@
 ﻿using Ferreteria_Web.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace Ferreteria_Web.Components.Pages.Productos;
 
-public partial class AgregarProductos(ProductoService productoService, NavigationManager navManager) : ComponentBase
+public partial class AgregarProductos : ComponentBase
 {
-    private ProductoModel _nuevoProducto = new();
+    [Inject] private ProductoService productoService { get; set; } = default!;
+    [Inject] private NavigationManager navManager { get; set; } = default!;
 
-    private async Task AgregarProducto()
+    private ProductoModel _nuevoProducto = new ProductoModel();
+
+    private async Task OnValidSubmit()
     {
         await productoService.AgregarAsync(_nuevoProducto);
         navManager.NavigateTo("/productos");

@@ -1,30 +1,77 @@
 ﻿@page "/agregarproveedores"
+@using MudBlazor
 
-<h3>Agregar Nuevo Proveedor</h3>
+<PageTitle>Agregar Proveedor</PageTitle>
 
-<EditForm Model="_nuevoProveedor" OnValidSubmit="AgregarProveedor" FormName="formAgregarProveedor">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h3" GutterBottom="true" Align="Align.Center" Class="mb-4">
+        Agregar Nuevo Proveedor
+    </MudText>
 
-    <div class="mb-3">
-        <label>Nombre</label>
-        <InputText class="form-control" @bind-Value="_nuevoProveedor.Nombre" />
-    </div>
+    <EditForm Model="@_nuevoProveedor" OnValidSubmit="AgregarProveedor">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="mb-3">
-        <label>Telefono</label>
-        <InputText class="form-control" @bind-Value="_nuevoProveedor.Telefono" />
-    </div>
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12" sm="10" md="8">
+                <MudCard Elevation="4">
+                    <MudCardContent Class="pa-6">
 
-    <div class="mb-3">
-        <label>Correo</label>
-        <InputNumber class="form-control" @bind-Value="_nuevoProveedor.Correo" />
-    </div>
+                        <MudTextField T="string"
+                                      Label="Nombre"
+                                      Required="true"
+                                      @bind-Value="_nuevoProveedor.Nombre"
+                                      For="@(() => _nuevoProveedor.Nombre)"
+                                      RequiredError="El nombre es obligatorio"
+                                      Margin="Margin.Normal"
+                                      Variant="Variant.Outlined" />
 
-    <div class="mb-3">
-        <label>Direccion</label>
-        <InputNumber class="form-control" @bind-Value="_nuevoProveedor.Direccion" />
-    </div>
+                        <MudTextField T="string"
+                                      Label="Teléfono"
+                                      Required="true"
+                                      @bind-Value="_nuevoProveedor.Telefono"
+                                      For="@(() => _nuevoProveedor.Telefono)"
+                                      RequiredError="El teléfono es obligatorio"
+                                      Margin="Margin.Normal"
+                                      Variant="Variant.Outlined" />
 
-    <button type="submit" class="btn btn-success">Guardar</button>
-</EditForm>
+                        <MudTextField T="string"
+                                      Label="Correo"
+                                      Required="true"
+                                      @bind-Value="_nuevoProveedor.Correo"
+                                      For="@(() => _nuevoProveedor.Correo)"
+                                      RequiredError="El correo es obligatorio"
+                                      Margin="Margin.Normal"
+                                      Variant="Variant.Outlined" />
+
+                        <MudTextField T="string"
+                                      Label="Dirección"
+                                      Required="true"
+                                      @bind-Value="_nuevoProveedor.Direccion"
+                                      For="@(() => _nuevoProveedor.Direccion)"
+                                      RequiredError="La dirección es obligatoria"
+                                      Margin="Margin.Normal"
+                                      Variant="Variant.Outlined" />
+
+                    </MudCardContent>
+
+                    <MudCardActions Class="pa-4 d-flex justify-end">
+                        <MudButton ButtonType="ButtonType.Reset"
+                                   Variant="Variant.Outlined"
+                                   Color="Color.Secondary"
+                                   Class="mr-3">
+                            <MudIcon Icon="@Icons.Material.Filled.Clear" Class="mr-2" />
+                            Limpiar
+                        </MudButton>
+
+                        <MudButton ButtonType="ButtonType.Submit"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Primary">
+                            Guardar Proveedor
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+</MudContainer>

@@ -21,6 +21,6 @@ public class ProductoService(IHttpClientFactory httpClientFactory)
 
     public async Task AgregarAsync(ProductoModel producto)
     {
-        var response = await this._httpClient.PostAsJsonAsync("producto", producto);
+        var response = await this._httpClient.PostAsJsonAsync("/producto", producto);
     }
 }

@@ -1,21 +1,58 @@
 ﻿@page "/agregarcategorias"
+@using MudBlazor
 
+<PageTitle>Agregar Categoría</PageTitle>
 
-<h3>Agregar Nueva Categoria</h3>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h3" GutterBottom="true" Align="Align.Center" Class="mb-4">
+        Agregar Nueva Categoría
+    </MudText>
 
-<EditForm Model="_nuevaCategoria" OnValidSubmit="AgregarCategoria" FormName="formAgregarCategoria">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+    <EditForm Model="@_nuevaCategoria" OnValidSubmit="AgregarCategoria">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <div class="mb-3">
-        <label>Nombre</label>
-        <InputText class="form-control" @bind-Value="_nuevaCategoria.Nombre_Categoria" />
-    </div>
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12" sm="10" md="8">
+                <MudCard Elevation="4">
+                    <MudCardContent Class="pa-6">
 
-    <div class="mb-3">
-        <label>Descripción</label>
-        <InputText class="form-control" @bind-Value="_nuevaCategoria.Descripcion" />
-    </div>
+                        <MudTextField T="string"
+                                      Label="Nombre de Categoría"
+                                      Required="true"
+                                      @bind-Value="_nuevaCategoria.Nombre_Categoria"
+                                      For="@(() => _nuevaCategoria.Nombre_Categoria)"
+                                      RequiredError="El nombre es obligatorio"
+                                      Margin="Margin.Normal"
+                                      Variant="Variant.Outlined" />
 
-    <button type="submit" class="btn btn-success">Guardar</button>
-</EditForm>
+                        <MudTextField T="string"
+                                      Label="Descripción"
+                                      @bind-Value="_nuevaCategoria.Descripcion"
+                                      For="@(() => _nuevaCategoria.Descripcion)"
+                                      Margin="Margin.Normal"
+                                      Variant="Variant.Outlined"
+                                      Lines="3" />
+
+                    </MudCardContent>
+
+                    <MudCardActions Class="pa-4 d-flex justify-end">
+                        <MudButton ButtonType="ButtonType.Reset"
+                                   Variant="Variant.Outlined"
+                                   Color="Color.Secondary"
+                                   Class="mr-3">
+                            <MudIcon Icon="@Icons.Material.Filled.Clear" Class="mr-2" />
+                            Limpiar
+                        </MudButton>
+
+                        <MudButton ButtonType="ButtonType.Submit"
+                                   Variant="Variant.Filled"
+                                   Color="Color.Primary">
+                            Guardar Categoría
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+</MudContainer>

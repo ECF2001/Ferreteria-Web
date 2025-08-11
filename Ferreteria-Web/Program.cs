@@ -1,4 +1,5 @@
 using Ferreteria_Web.Components;
+using Ferreteria_Web.Services;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,8 @@ builder.Services.AddHttpClient("api", http =>
     http.BaseAddress = new Uri("https://localhost:44392/api/");
 });
 builder.Services.AddSingleton<ProductoService>();
+builder.Services.AddSingleton<CategoriaService>();
+builder.Services.AddSingleton<ProveedorService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

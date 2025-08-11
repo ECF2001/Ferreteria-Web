@@ -1,55 +1,47 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Ferreteria-Web</a>
-    </div>
-</div>
+﻿@using MudBlazor
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+<MudNavMenu>
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="">
-                <span class="oi oi-home" aria-hidden="true"></span> Inicio
-            </NavLink>
-        </div>
+    <!-- Inicio -->
+    <MudNavLink Href="/home" Match="NavLinkMatch.All">
+        <MudIcon Icon="@Icons.Material.Filled.Home" Class="me-2" />
+        Inicio
+    </MudNavLink>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="productos">
-                <span class="oi oi-list" aria-hidden="true"></span> Inventario
-            </NavLink>
-        </div>
+    <!-- Productos -->
+    <MudNavGroup Title="Productos" Icon="@Icons.Material.Filled.Inventory">
+        <MudNavLink Href="productos">
+            <MudIcon Icon="@Icons.Material.Filled.List" Class="me-2" />
+            Ver Productos
+        </MudNavLink>
+        <MudNavLink Href="agregarproducto">
+            <MudIcon Icon="@Icons.Material.Filled.AddBox" Class="me-2" />
+            Agregar Producto
+        </MudNavLink>
+    </MudNavGroup>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="agregarproducto">
-                <span class="oi oi-plus" aria-hidden="true"></span> Agregar Producto
-            </NavLink>
-        </div>
+    <!-- Categorías -->
+    <MudNavGroup Title="Categorías" Icon="@Icons.Material.Filled.Category">
+        <MudNavLink Href="categorias">
+            <MudIcon Icon="@Icons.Material.Filled.List" Class="me-2" />
+            Ver Categorías
+        </MudNavLink>
+        <MudNavLink Href="agregarcategorias">
+            <MudIcon Icon="@Icons.Material.Filled.AddCircle" Class="me-2" />
+            Agregar Categoría
+        </MudNavLink>
+    </MudNavGroup>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="categorias">
-                <span class="oi oi-list" aria-hidden="true"></span> Categorias
-            </NavLink>
-        </div>
+    <!-- Proveedores -->
+    <MudNavGroup Title="Proveedores" Icon="@Icons.Material.Filled.LocalShipping">
+        <MudNavLink Href="proveedores">
+            <MudIcon Icon="@Icons.Material.Filled.List" Class="me-2" />
+            Ver Proveedores
+        </MudNavLink>
+        <MudNavLink Href="agregarproveedores">
+            <MudIcon Icon="@Icons.Material.Filled.PersonAdd" Class="me-2" />
+            Agregar Proveedor
+        </MudNavLink>
+    </MudNavGroup>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="agregarcategoria">
-                <span class="oi oi-plus" aria-hidden="true"></span> Agregar Categoria
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="proveedores">
-                <span class="oi oi-list" aria-hidden="true"></span> Proveedores
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="agregarproveedor">
-                <span class="oi oi-plus" aria-hidden="true"></span> Agregar Proveedor
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-
+</MudNavMenu>

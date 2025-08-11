@@ -1,23 +1,119 @@
-﻿@inherits LayoutComponentBase
+﻿@using MudBlazor
+@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu/>
-    </div>
+<MudThemeProvider Theme="@MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+<MudLayout Style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- App Bar -->
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu"
+                       Color="Color.Inherit"
+                       Edge="Edge.Start"
+                       OnClick="DrawerToggle" />
+        <MudText Typo="Typo.h6" Class="ml-2">
+            🛠️ Ferretería El Tornillo
+        </MudText>
+
+        <MudSpacer />
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   OnClick="ShowTranslateTip"
+                   Class="me-2">
+            🌐 Traducir
+        </MudButton>
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Href="Files/CatalogoFerreteria.pdf"
+                   Target="_blank"
+                   Download>
+            <MudIcon Icon="@Icons.Material.Filled.Download" Class="me-1" />
+            Descargar Catálogo
+        </MudButton>
+    </MudAppBar>
+
+    <!-- Drawer -->
+    <MudDrawer @bind-Open="_isDrawerOpen"
+               Variant="DrawerVariant.Temporary"
+               Elevation="1"
+               Anchor="Anchor.Left">
+        <NavMenu />
+    </MudDrawer>
+
+    <!-- Main Content -->
+    <MudMainContent Style="flex: 1;">
+        @Body
+    </MudMainContent>
+
+    <br /><br /><br />
+
+    <!-- Footer -->
+    <MudPaper Elevation="0"
+              Class="pa-4 d-flex align-center justify-space-between"
+              Style="background-color: #ff7f11; margin: 0; border-radius: 0;">
+        <div>
+            © @DateTime.Now.Year Ferretería El Tornillo — Todos los derechos reservados
         </div>
+        <div>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@ScrollToTop">
+                ↑ Arriba
+            </MudButton>
+            <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Default" Href="https://facebook.com" />
+            <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Default" Href="https://instagram.com" />
+            <MudIconButton Icon="@Icons.Material.Filled.Email" Color="Color.Default" Href="mailto:contacto@eltornillo.com" />
+        </div>
+    </MudPaper>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+</MudLayout>
 
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
-</div>
+@code {
+    [Inject] IJSRuntime JS { get; set; }
+
+    private readonly MudTheme MyCustomTheme = new MudTheme
+    {
+        PaletteLight = new PaletteLight
+        {
+            Primary = "#264653",        // Deep Steel Blue
+            Secondary = "#ff7f11",      // Construction Orange
+            Background = "#ffffff",
+            Surface = "#ffffff",
+            AppbarBackground = "#264653",
+            DrawerBackground = "#e9ecef",
+            TextPrimary = "#212529",
+            TextSecondary = "#212529"
+        },
+        LayoutProperties = new LayoutProperties
+        {
+            DefaultBorderRadius = "6px"
+        }
+    };
+
+    private async Task ScrollToTop()
+    {
+        await JS.InvokeVoidAsync("scrollToTop");
+    }
+
+    private bool _isDrawerOpen = false;
+
+    private void DrawerToggle()
+    {
+        _isDrawerOpen = !_isDrawerOpen;
+    }
+
+    [Inject] ISnackbar Snackbar { get; set; }
+
+    private void ShowTranslateTip()
+    {
+        Snackbar.Add("🌐 Consejo: Use la opción de traducción de su navegador para ver esta página en otro idioma.", Severity.Info);
+    }
+}
+
+<script>
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>

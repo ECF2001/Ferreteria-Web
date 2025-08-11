@@ -1,0 +1,97 @@
+﻿@page "/"
+@using System.ComponentModel.DataAnnotations
+@using MudBlazor
+
+<PageTitle>Login - Ferretería El Tornillo</PageTitle>
+
+<MudGrid Justify="Justify.Center" AlignItems="AlignItems.Center">
+
+    <MudItem xs="12" sm="6" md="4">
+        <MudCard Elevation="10" Class="pa-6" Style="border-radius: 16px;">
+            <MudCardContent>
+                
+                <!-- Logo/Header -->
+                <div class="text-center mb-4">
+                    <MudText Typo="Typo.h4" Class="mt-2 mb-1" Color="Color.Primary" Align="Align.Center">
+                        🛠️ El Tornillo
+                    </MudText>
+                    <MudText Typo="Typo.subtitle2" Class="mb-4" Align="Align.Center">
+                        Sistema de Ferretería
+                    </MudText>
+                </div>
+
+                <!-- Login Form -->
+                <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+                    <DataAnnotationsValidator />
+
+                    <MudTextField @bind-Value="loginModel.Username"
+                                  Label="Usuario"
+                                  Required="true"
+                                  Class="mb-4"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Person"
+                                  For="@(() => loginModel.Username)" />
+
+                    <MudTextField @bind-Value="loginModel.Password"
+                                  Label="Contraseña"
+                                  InputType="@passwordInputType"
+                                  Required="true"
+                                  Class="mb-4"
+                                  Variant="Variant.Outlined"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@passwordIcon"
+                                  OnAdornmentClick="TogglePasswordVisibility"
+                                  AdornmentAriaLabel="Mostrar contraseña"
+                                  For="@(() => loginModel.Password)" />
+
+                    <MudButton ButtonType="ButtonType.Submit"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               FullWidth="true"
+                               Size="Size.Large"
+                               Class="mb-3"
+                               Loading="@isLoading">
+
+                        @if (isLoading)
+                        {
+                            <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+                            <span>Iniciando sesión...</span>
+                        }
+                        else
+                        {
+                            <MudIcon Icon="@Icons.Material.Filled.Login" Class="mr-2" />
+                            <span>Iniciar Sesión</span>
+                        }
+
+                    </MudButton>
+
+                    <!-- Validation Summary -->
+                    <ValidationSummary />
+                </EditForm>
+
+                <!-- Error Alert -->
+                @if (loginFailed)
+                {
+                    <MudAlert Severity="Severity.Error" Class="mt-3">
+                        <MudText>
+                            <strong>Error:</strong> Usuario o contraseña incorrectos
+                        </MudText>
+                    </MudAlert>
+                }
+
+                <!-- Demo Credentials -->
+                <MudPaper Class="pa-3 mt-4" Elevation="2">
+                    <MudText Typo="Typo.caption" Align="Align.Center" Class="mb-2">
+                        <strong>Credenciales de prueba:</strong>
+                    </MudText>
+                    <MudText Typo="Typo.body2" Align="Align.Center">
+                        Usuario: <code>admin</code> | Contraseña: <code>12345</code>
+                    </MudText>
+                </MudPaper>
+
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+</MudGrid>
