@@ -8,7 +8,7 @@ public class ProveedorService(IHttpClientFactory httpClientFactory)
     
     public async Task<List<ProveedorModel>> ObtenerTodosAsync()
     {
-        var result = await this._httpClient.GetAsync("producto");
+        var result = await this._httpClient.GetAsync("proveedores/GetAll");
         if (!result.IsSuccessStatusCode)
         {
             return [];
@@ -19,6 +19,35 @@ public class ProveedorService(IHttpClientFactory httpClientFactory)
 
     public async Task AgregarAsync(ProveedorModel proveedor)
     {
-        var response = await this._httpClient.PostAsJsonAsync("proveedor", proveedor);
+        var response = await this._httpClient.PostAsJsonAsync("proveedores/create", proveedor);
+    }
+    
+    public async Task EliminarAsync(int id)
+    {
+        var response = await this._httpClient.DeleteAsync($"proveedores/Delete/{id}");
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("Error al eliminar el proveedor");
+        }
+    }
+    
+    public async Task<ProveedorModel?> ObtenerPorIdAsync(int id)
+    {
+        var result = await this._httpClient.GetAsync($"proveedores/GetById/{id}");
+        if (!result.IsSuccessStatusCode)
+        {
+            return null;
+        }
+        
+        return await result.Content.ReadFromJsonAsync<ProveedorModel>();
+    }
+    
+    public async Task ActualizarAsync(ProveedorModel proveedorModel)
+    {
+        var response = await this._httpClient.PutAsJsonAsync("proveedores/Update", proveedorModel);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("Error al actualizar el proveedor");
+        }
     }
 }

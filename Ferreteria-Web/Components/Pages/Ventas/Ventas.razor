@@ -1,0 +1,48 @@
+﻿@page "/ventas"
+@using Ferreteria_Web.Models
+@using Ferreteria_Web.Services
+@using MudBlazor
+@inject VentaService ventaService
+
+<MudPaper Class="pa-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Lista de Ventas</MudText>
+
+    @if (ventas == null)
+    {
+        <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" />
+    }
+    else if (!ventas.Any())
+    {
+        <MudText>No hay ventas registradas.</MudText>
+    }
+    else
+    {
+        <MudTable Items="ventas" Hover="true" Striped="true" Bordered="true">
+            <HeaderContent>
+                <MudTh>ID de Venta</MudTh>
+                <MudTh>Fecha de Venta</MudTh>
+                <MudTh>ID Usuario</MudTh>
+                <MudTh>Total Venta</MudTh>
+                <MudTh>IVA</MudTh>
+                <MudTh>Total Final</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.Id</MudTd>
+                <MudTd>@context.FechaVenta.ToString("dd/MM/yyyy")</MudTd>
+                <MudTd>@context.IdUsuario</MudTd>
+                <MudTd>@context.TotalVenta.ToString("C")</MudTd>
+                <MudTd>@context.IVA.ToString("C")</MudTd>
+                <MudTd>@context.TotalFinal.ToString("C")</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudPaper>
+
+@code {
+    private List<VentaModel>? ventas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ventas = await ventaService.ObtenerTodosAsync();
+    }
+}

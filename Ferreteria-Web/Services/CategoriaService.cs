@@ -8,7 +8,7 @@ public class CategoriaService(IHttpClientFactory httpClientFactory)
 
     public async Task<List<CategoriaModel>> ObtenerTodosAsync()
     {
-        var result = await this._httpClient.GetAsync("categoria");
+        var result = await this._httpClient.GetAsync("categoria/GetAll");
         if (!result.IsSuccessStatusCode)
         {
             return [];
@@ -19,6 +19,34 @@ public class CategoriaService(IHttpClientFactory httpClientFactory)
 
     public async Task AgregarAsync(CategoriaModel producto)
     {
-        var response = await this._httpClient.PostAsJsonAsync("categoria", producto);
+        var response = await this._httpClient.PostAsJsonAsync("categoria/create", producto);
+    }
+    public async Task EliminarAsync(int id)
+    {
+        var response = await this._httpClient.DeleteAsync($"categoria/Delete/{id}");
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("Error al eliminar la categoría");
+        }
+    }
+    
+    public async Task<CategoriaModel?> ObtenerPorIdAsync(int id)
+    {
+        var result = await this._httpClient.GetAsync($"categoria/GetById/{id}");
+        if (!result.IsSuccessStatusCode)
+        {
+            return null;
+        }
+        
+        return await result.Content.ReadFromJsonAsync<CategoriaModel>();
+    }
+    
+    public async Task ActualizarAsync(CategoriaModel categoriaModel)
+    {
+        var response = await this._httpClient.PutAsJsonAsync("categoria/Update", categoriaModel);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception("Error al actualizar la categoría");
+        }
     }
 }

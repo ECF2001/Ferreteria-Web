@@ -1,0 +1,42 @@
+﻿@page "/compras"
+@using Ferreteria_Web.Models
+@using Ferreteria_Web.Services
+@using MudBlazor
+@inject CompraService compraService
+
+<MudPaper Class="pa-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Lista de Compras</MudText>
+
+    @if (compras == null)
+    {
+        <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Large" />
+    }
+    else if (!compras.Any())
+    {
+        <MudText>No hay compras registradas.</MudText>
+    }
+    else
+    {
+        <MudTable Items="compras" Hover="true" Striped="true" Bordered="true">
+            <HeaderContent>
+                <MudTh>Fecha de Compra</MudTh>
+                <MudTh>ID Proveedor</MudTh>
+                <MudTh>Total</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>@context.Fecha_Compra.ToString("dd/MM/yyyy")</MudTd>
+                <MudTd>@context.Id_Proveedor</MudTd>
+                <MudTd>@context.Total.ToString("C")</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudPaper>
+
+@code {
+    private List<CompraModel>? compras;
+
+    protected override async Task OnInitializedAsync()
+    {
+        compras = await compraService.ObtenerTodosAsync();
+    }
+}

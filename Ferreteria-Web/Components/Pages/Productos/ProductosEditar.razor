@@ -1,0 +1,58 @@
+﻿@page "/editarproducto/{Id:int}"
+@using Ferreteria_Web.Models
+
+<h3>Editar Producto</h3>
+
+@if (producto == null)
+{
+    <p><em>Cargando datos...</em></p>
+}
+else
+{
+    <EditForm Model="@producto" OnValidSubmit="GuardarCambios">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label>Nombre</label>
+            <InputText class="form-control" @bind-Value="producto.Nombre" />
+        </div>
+
+        <div class="mb-3">
+            <label>Descripción</label>
+            <InputText class="form-control" @bind-Value="producto.Descripcion" />
+        </div>
+
+        <div class="mb-3">
+            <label>Precio Compra</label>
+            <InputNumber class="form-control" @bind-Value="producto.Precio_Compra" />
+        </div>
+
+        <div class="mb-3">
+            <label>Precio Venta</label>
+            <InputNumber class="form-control" @bind-Value="producto.Precio_Venta" />
+        </div>
+
+        <div class="mb-3">
+            <label>Stock Actual</label>
+            <InputNumber class="form-control" @bind-Value="producto.Stock_Actual" />
+        </div>
+
+        <div class="mb-3">
+            <label>Stock Mínimo</label>
+            <InputNumber class="form-control" @bind-Value="producto.Stock_Minimo" />
+        </div>
+
+        <div class="mb-3">
+            <label>Categoría</label>
+            <InputNumber class="form-control" @bind-Value="producto.Id_Categoria" />
+        </div>
+
+        <div class="mb-3">
+            <label>Proveedor</label>
+            <InputNumber class="form-control" @bind-Value="producto.Id_Proveedor" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </EditForm>
+}

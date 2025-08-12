@@ -1,33 +1,52 @@
 ﻿@page "/categorias"
 @using Ferreteria_Web.Models
+@using MudBlazor
 
-<h3>Inventario de Categorias</h3>
+<PageTitle>Categorías</PageTitle>
 
-@if (_categorias == null)
-{
-    <p>Cargando categorias...</p>
-}
-else if (!_categorias.Any())
-{
-    <p>No hay categorias registrados.</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var p in _categorias)
-        {
-            <tr>
-                <td>@p.Nombre_Categoria</td>
-                <td>@p.Descripcion</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<MudContainer Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">
+        Inventario de Categorías
+    </MudText>
+
+    @if (_categorias == null)
+    {
+        <MudText>Cargando categorías...</MudText>
+    }
+    else if (!_categorias.Any())
+    {
+        <MudText>No hay categorías registradas.</MudText>
+    }
+    else
+    {
+        <MudTable Items="_categorias" Hover="true" Bordered="true" Striped="true">
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Descripción</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@context.Nombre_Categoria</MudTd>
+                <MudTd DataLabel="Descripción">@context.Descripcion</MudTd>
+                <MudTd>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Small"
+                               OnClick="@(() => EditarCategoria(context))"
+                               Class="mr-2">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" Class="mr-1" />
+                        Actualizar
+                    </MudButton>
+
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               OnClick="@(() => EliminarCategoria(context.Id))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Class="mr-1" />
+                        Eliminar
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudContainer>

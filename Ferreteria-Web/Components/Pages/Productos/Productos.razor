@@ -1,45 +1,63 @@
 ﻿@page "/productos"
 @using Ferreteria_Web.Models
+@using MudBlazor
 
-<h3>Inventario de Productos</h3>
+<PageTitle>Productos</PageTitle>
 
-@if (_productos == null)
-{
-    <p>Cargando productos...</p>
-}
-else if (!_productos.Any())
-{
-    <p>No hay productos registrados.</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Compra</th>
-            <th>Venta</th>
-            <th>Stock</th>
-            <th>Mínimo</th>
-            <th>Categoría</th>
-            <th>Proveedor</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var p in _productos)
-        {
-            <tr>
-                <td>@p.Nombre</td>
-                <td>@p.Descripcion</td>
-                <td>@p.Precio_Compra.ToString("C")</td>
-                <td>@p.Precio_Venta.ToString("C")</td>
-                <td>@p.Stock_Actual</td>
-                <td>@p.Stock_Minimo</td>
-                <td>@p.Id_Categoria</td>
-                <td>@p.Id_Proveedor</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<MudContainer Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">
+        Inventario de Productos
+    </MudText>
+
+    @if (_productos == null)
+    {
+        <MudText>Cargando productos...</MudText>
+    }
+    else if (!_productos.Any())
+    {
+        <MudText>No hay productos registrados.</MudText>
+    }
+    else
+    {
+        <MudTable Items="_productos" Hover="true" Bordered="true" Striped="true">
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Descripción</MudTh>
+                <MudTh>Compra</MudTh>
+                <MudTh>Venta</MudTh>
+                <MudTh>Stock</MudTh>
+                <MudTh>Mínimo</MudTh>
+                <MudTh>Categoría</MudTh>
+                <MudTh>Proveedor</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd DataLabel="Descripción">@context.Descripcion</MudTd>
+                <MudTd DataLabel="Compra">@context.Precio_Compra.ToString("C")</MudTd>
+                <MudTd DataLabel="Venta">@context.Precio_Venta.ToString("C")</MudTd>
+                <MudTd DataLabel="Stock">@context.Stock_Actual</MudTd>
+                <MudTd DataLabel="Mínimo">@context.Stock_Minimo</MudTd>
+                <MudTd DataLabel="Categoría">@context.Id_Categoria</MudTd>
+                <MudTd DataLabel="Proveedor">@context.Id_Proveedor</MudTd>
+                <MudTd>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Small"
+                               OnClick="@(() => EditarProducto(context))"
+                               Class="mr-2">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" Class="mr-1" />
+                        Actualizar
+                    </MudButton>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               OnClick="@(() => EliminarProducto(context.Id))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Class="mr-1" />
+                        Eliminar
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudContainer>

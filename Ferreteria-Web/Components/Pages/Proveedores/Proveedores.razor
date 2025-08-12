@@ -1,37 +1,55 @@
 ﻿@page "/proveedores"
 @using Ferreteria_Web.Models
+@using MudBlazor
 
-<h3>Lista de Proveedores</h3>
+<PageTitle>Proveedores</PageTitle>
 
-@if (_proveedores == null)
-{
-    <p>Cargando proveedores...</p>
-}
-else if (!_proveedores.Any())
-{
-    <p>No hay proveedores registrados.</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Telefono</th>
-            <th>Correo</th>
-            <th>Direccion</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var p in _proveedores)
-        {
-            <tr>
-                <td>@p.Nombre</td>
-                <td>@p.Telefono</td>
-                <td>@p.Correo</td>
-                <td>@p.Direccion</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<MudContainer Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">
+        Lista de Proveedores
+    </MudText>
+
+    @if (_proveedores == null)
+    {
+        <MudText>Cargando proveedores...</MudText>
+    }
+    else if (!_proveedores.Any())
+    {
+        <MudText>No hay proveedores registrados.</MudText>
+    }
+    else
+    {
+        <MudTable Items="_proveedores" Hover="true" Bordered="true" Striped="true">
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Teléfono</MudTh>
+                <MudTh>Correo</MudTh>
+                <MudTh>Dirección</MudTh>
+                <MudTh>Acciones</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd DataLabel="Teléfono">@context.Telefono</MudTd>
+                <MudTd DataLabel="Correo">@context.Correo</MudTd>
+                <MudTd DataLabel="Dirección">@context.Direccion</MudTd>
+                <MudTd>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Size="Size.Small"
+                               OnClick="@(() => EditarProveedor(context))"
+                               Class="mr-2">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" Class="mr-1" />
+                        Actualizar
+                    </MudButton>
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               OnClick="@(() => EliminarProveedor(context.Id))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" Class="mr-1" />
+                        Eliminar
+                    </MudButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudContainer>

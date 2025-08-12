@@ -1,0 +1,31 @@
+﻿
+@page "/editarcategoria/{Id:int}"
+@using Ferreteria_Web.Models
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<h3>Editar Categoría</h3>
+
+@if (categoria == null)
+{
+    <p><em>Cargando datos...</em></p>
+}
+else
+{
+    <EditForm Model="@categoria" OnValidSubmit="GuardarCambios">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label class="form-label">Nombre Categoría</label>
+            <InputText class="form-control" @bind-Value="categoria.Nombre_Categoria" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción</label>
+            <InputText class="form-control" @bind-Value="categoria.Descripcion" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Guardar</button>
+    </EditForm>
+}
