@@ -23,13 +23,13 @@ public class ProductoService(IHttpClientFactory httpClientFactory)
     
     public async Task EliminarAsync(int id)
     {
-        var response = await this._httpClient.DeleteAsync($"producto/Delete/{id}");
+        var response = await _httpClient.DeleteAsync($"producto/Delete?id={id}");
         if (!response.IsSuccessStatusCode)
         {
             throw new Exception("Error al eliminar el producto");
         }
     }
-    
+
     public async Task<ProductoModel?> ObtenerPorIdAsync(int id)
     {
         var response = await _httpClient.GetAsync($"producto/GetById/{id}");
