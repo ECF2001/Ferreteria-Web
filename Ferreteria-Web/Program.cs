@@ -15,6 +15,10 @@ builder.Services.AddHttpClient("api", http =>
 builder.Services.AddSingleton<ProductoService>();
 builder.Services.AddSingleton<CategoriaService>();
 builder.Services.AddSingleton<ProveedorService>();
+builder.Services.AddSingleton<VentaService>();
+
+builder.Services.AddScoped<InventarioService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

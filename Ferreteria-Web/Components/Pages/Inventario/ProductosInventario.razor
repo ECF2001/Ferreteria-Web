@@ -1,0 +1,40 @@
+﻿@page "/inventario/productos"
+@using Ferreteria_Web.Models
+@using MudBlazor
+
+<PageTitle>Inventario - Productos</PageTitle>
+
+<MudContainer Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Productos (Inventario)</MudText>
+
+    @if (_productos is null)
+    {
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+            <MudProgressCircular Indeterminate="true" />
+            <MudText>Cargando...</MudText>
+        </MudStack>
+    }
+    else if (_productos.Count == 0)
+    {
+        <MudAlert Severity="Severity.Info">No hay productos en el inventario.</MudAlert>
+    }
+    else
+    {
+        <MudTable Items="_productos" Dense="true" Striped="true" Hover="true" Bordered="true" Context="item">
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Descripción</MudTh>
+                <MudTh>Stock</MudTh>
+                <MudTh>Mínimo</MudTh>
+                <MudTh>Precio Venta</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@item.Nombre</MudTd>
+                <MudTd DataLabel="Descripción">@item.Descripcion</MudTd>
+                <MudTd DataLabel="Stock">@item.Stock_Actual</MudTd>
+                <MudTd DataLabel="Mínimo">@item.Stock_Minimo</MudTd>
+                <MudTd DataLabel="Precio Venta">@item.Precio_Venta.ToString("N2")</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudContainer>

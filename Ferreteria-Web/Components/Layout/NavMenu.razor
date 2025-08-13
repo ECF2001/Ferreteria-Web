@@ -43,5 +43,30 @@
             Agregar Proveedor
         </MudNavLink>
     </MudNavGroup>
+    
+    <!-- Ventas -->
+    <MudNavGroup Title="Ventas" Icon="@Icons.Material.Filled.PointOfSale">
+        <MudNavLink Href="ventas">
+            <MudIcon Icon="@Icons.Material.Filled.List" Class="me-2" />
+            Ver Ventas
+        </MudNavLink>
+        <MudNavLink Href="agregarventa">
+            <MudIcon Icon="@Icons.Material.Filled.PersonAdd" Class="me-2" />
+            Agregar Ventas
+        </MudNavLink>
+    </MudNavGroup>
+    
+    <!-- Inventario -->
+    <MudNavGroup Title="Inventario" Icon="@Icons.Material.Filled.Warehouse">
+        <MudNavLink Href="inventario/productos">
+            <MudIcon Icon="@Icons.Material.Filled.Inventory" Class="me-2" />
+            Productos (Inventario)
+        </MudNavLink>
+        <MudNavLink Href="inventario/stock-bajo">
+            <MudIcon Icon="@Icons.Material.Filled.Report" Class="me-2" />
+            Stock bajo mínimo
+        </MudNavLink>
+    </MudNavGroup>
+
 
 </MudNavMenu>

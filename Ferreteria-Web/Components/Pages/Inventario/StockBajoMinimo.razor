@@ -1,0 +1,36 @@
+﻿@page "/inventario/stock-bajo"
+@using Ferreteria_Web.Models
+@using MudBlazor
+
+<PageTitle>Stock Bajo Mínimo</PageTitle>
+
+<MudContainer Class="mt-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">Productos con Stock Bajo</MudText>
+
+    @if (_productosBajoMinimo is null)
+    {
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+            <MudProgressCircular Indeterminate="true" />
+            <MudText>Cargando...</MudText>
+        </MudStack>
+    }
+    else if (_productosBajoMinimo.Count == 0)
+    {
+        <MudAlert Severity="Severity.Success">¡Todo en orden! No hay productos por debajo del mínimo.</MudAlert>
+    }
+    else
+    {
+        <MudTable Items="_productosBajoMinimo" Dense="true" Striped="true" Hover="true" Bordered="true" Context="item">
+            <HeaderContent>
+                <MudTh>Producto</MudTh>
+                <MudTh>Stock</MudTh>
+                <MudTh>Mínimo</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Producto">@item.Nombre</MudTd>
+                <MudTd DataLabel="Stock">@item.Stock_Actual</MudTd>
+                <MudTd DataLabel="Mínimo">@item.Stock_Minimo</MudTd>
+            </RowTemplate>
+        </MudTable>
+    }
+</MudContainer>
