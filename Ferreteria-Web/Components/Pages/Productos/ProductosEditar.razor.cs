@@ -18,4 +18,9 @@ public partial class ProductosEditar(ProductoService productoService, Navigation
         await productoService.ActualizarAsync(producto);
         NavManager.NavigateTo("/productos");
     }
+
+    private void Volver()
+    {
+        NavManager.NavigateTo("/productos");
+    }
 }

@@ -32,14 +32,20 @@ public class ProductoService(IHttpClientFactory httpClientFactory)
     
     public async Task<ProductoModel?> ObtenerPorIdAsync(int id)
     {
-        var result = await this._httpClient.GetAsync($"producto/GetById/{id}");
-        if (!result.IsSuccessStatusCode)
+        var response = await _httpClient.GetAsync($"producto/GetById/{id}");
+
+        if (!response.IsSuccessStatusCode)
         {
+            // Optional: log or throw exception for debugging
+            // Console.WriteLine($"Error: {response.StatusCode}");
             return null;
         }
-        
-        return await result.Content.ReadFromJsonAsync<ProductoModel>();
+
+        var producto = await response.Content.ReadFromJsonAsync<ProductoModel>();
+
+        return producto; // May still be null if JSON was empty
     }
+
     public async Task ActualizarAsync(ProductoModel productoModel)
     {
         var response = await this._httpClient.PutAsJsonAsync("producto/Update", productoModel);

@@ -1,58 +1,134 @@
 ﻿@page "/editarproducto/{Id:int}"
 @using Ferreteria_Web.Models
+@using MudBlazor
+@inject NavigationManager Navigation
 
-<h3>Editar Producto</h3>
+<PageTitle>Editar Producto</PageTitle>
 
-@if (producto == null)
-{
-    <p><em>Cargando datos...</em></p>
-}
-else
-{
-    <EditForm Model="@producto" OnValidSubmit="GuardarCambios">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-4">
+    <MudText Typo="Typo.h3" GutterBottom="true" Align="Align.Center" Class="mb-4">
+        Editar Producto
+    </MudText>
 
-        <div class="mb-3">
-            <label>Nombre</label>
-            <InputText class="form-control" @bind-Value="producto.Nombre" />
-        </div>
+    @if (producto == null)
+    {
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Large" Class="d-block mx-auto mt-6" />
+        <MudText Align="Align.Center" Class="mt-2">Cargando datos...</MudText>
+    }
+    else
+    {
+        <EditForm Model="@producto" OnValidSubmit="GuardarCambios">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div class="mb-3">
-            <label>Descripción</label>
-            <InputText class="form-control" @bind-Value="producto.Descripcion" />
-        </div>
+            <MudGrid Justify="Justify.Center">
+                <MudItem xs="12" sm="10" md="8">
+                    <MudCard Elevation="4">
+                        <MudCardContent Class="pa-6">
 
-        <div class="mb-3">
-            <label>Precio Compra</label>
-            <InputNumber class="form-control" @bind-Value="producto.Precio_Compra" />
-        </div>
+                            <MudTextField T="string"
+                                          Label="Nombre"
+                                          Required="true"
+                                          @bind-Value="producto.Nombre"
+                                          For="@(() => producto.Nombre)"
+                                          RequiredError="El nombre es obligatorio"
+                                          Margin="Margin.Normal"
+                                          Variant="Variant.Outlined" />
 
-        <div class="mb-3">
-            <label>Precio Venta</label>
-            <InputNumber class="form-control" @bind-Value="producto.Precio_Venta" />
-        </div>
+                            <MudTextField T="string"
+                                          Label="Descripción"
+                                          @bind-Value="producto.Descripcion"
+                                          For="@(() => producto.Descripcion)"
+                                          Margin="Margin.Normal"
+                                          Variant="Variant.Outlined"
+                                          Lines="3" />
 
-        <div class="mb-3">
-            <label>Stock Actual</label>
-            <InputNumber class="form-control" @bind-Value="producto.Stock_Actual" />
-        </div>
+                            <MudGrid Class="mt-3">
+                                <MudItem xs="12" sm="6">
+                                    <MudNumericField T="decimal"
+                                                     Label="Precio Compra"
+                                                     Required="true"
+                                                     Min="0"
+                                                     @bind-Value="producto.Precio_Compra"
+                                                     For="@(() => producto.Precio_Compra)"
+                                                     Adornment="Adornment.Start"
+                                                     AdornmentText="₡"
+                                                     Variant="Variant.Outlined" />
+                                </MudItem>
+                                <MudItem xs="12" sm="6">
+                                    <MudNumericField T="decimal"
+                                                     Label="Precio Venta"
+                                                     Required="true"
+                                                     Min="0"
+                                                     @bind-Value="producto.Precio_Venta"
+                                                     For="@(() => producto.Precio_Venta)"
+                                                     Adornment="Adornment.Start"
+                                                     AdornmentText="₡"
+                                                     Variant="Variant.Outlined" />
+                                </MudItem>
+                            </MudGrid>
 
-        <div class="mb-3">
-            <label>Stock Mínimo</label>
-            <InputNumber class="form-control" @bind-Value="producto.Stock_Minimo" />
-        </div>
+                            <MudGrid Class="mt-3">
+                                <MudItem xs="12" sm="6">
+                                    <MudNumericField T="int"
+                                                     Label="Stock Actual"
+                                                     Required="true"
+                                                     Min="0"
+                                                     @bind-Value="producto.Stock_Actual"
+                                                     For="@(() => producto.Stock_Actual)"
+                                                     Variant="Variant.Outlined" />
+                                </MudItem>
+                                <MudItem xs="12" sm="6">
+                                    <MudNumericField T="int"
+                                                     Label="Stock Mínimo"
+                                                     Required="true"
+                                                     Min="0"
+                                                     @bind-Value="producto.Stock_Minimo"
+                                                     For="@(() => producto.Stock_Minimo)"
+                                                     Variant="Variant.Outlined" />
+                                </MudItem>
+                            </MudGrid>
 
-        <div class="mb-3">
-            <label>Categoría</label>
-            <InputNumber class="form-control" @bind-Value="producto.Id_Categoria" />
-        </div>
+                            <MudGrid Class="mt-3">
+                                <MudItem xs="12" sm="6">
+                                    <MudNumericField T="int"
+                                                     Label="ID Categoría"
+                                                     Required="true"
+                                                     Min="1"
+                                                     @bind-Value="producto.Id_Categoria"
+                                                     For="@(() => producto.Id_Categoria)"
+                                                     Variant="Variant.Outlined" />
+                                </MudItem>
+                                <MudItem xs="12" sm="6">
+                                    <MudNumericField T="int"
+                                                     Label="ID Proveedor"
+                                                     Required="true"
+                                                     Min="1"
+                                                     @bind-Value="producto.Id_Proveedor"
+                                                     For="@(() => producto.Id_Proveedor)"
+                                                     Variant="Variant.Outlined" />
+                                </MudItem>
+                            </MudGrid>
 
-        <div class="mb-3">
-            <label>Proveedor</label>
-            <InputNumber class="form-control" @bind-Value="producto.Id_Proveedor" />
-        </div>
-
-        <button class="btn btn-primary" type="submit">Guardar</button>
-    </EditForm>
-}
+                        </MudCardContent>
+                        <MudCardActions Class="pa-4 d-flex justify-end">
+                            <MudButton Variant="Variant.Outlined"
+                                       Color="Color.Secondary"
+                                       OnClick="Volver">
+                                <MudIcon Icon="@Icons.Material.Filled.ArrowBack" Class="mr-2" />
+                                Cancelar
+                            </MudButton>
+                            <MudButton ButtonType="ButtonType.Submit"
+                                       Variant="Variant.Filled"
+                                       Color="Color.Primary"
+                                       Class="ml-3">
+                                <MudIcon Icon="@Icons.Material.Filled.Save" Class="mr-2" />
+                                Guardar Cambios
+                            </MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    }
+</MudContainer>
